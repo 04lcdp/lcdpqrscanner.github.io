@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner QR</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <h1>Escáner QR en vivo</h1>
+    
+    <!-- Video de la cámara (con escaneo de QR en vivo) -->
+    <video id="video" autoplay></video>
+    <div id="message"></div>
+
+    <!-- Sección para ingresar texto -->
+    <div>
+      <h3>Ingresa un código QR manualmente:</h3>
+      <input type="text" id="manualCode" placeholder="Ingresa código QR">
+      <button onclick="validateManualCode()">Validar Código</button>
+    </div>
+
+    <script src="js/jsQR.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
