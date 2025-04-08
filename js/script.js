@@ -20,7 +20,6 @@ document.getElementById('verifyButton').addEventListener('click', () => {
   const ctx = canvas.getContext('2d');
   const messageDiv = document.getElementById('message');
 
-  // Establecer el tamaño del canvas igual al tamaño del video
   canvas.height = video.videoHeight;
   canvas.width = video.videoWidth;
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -36,27 +35,30 @@ document.getElementById('verifyButton').addEventListener('click', () => {
   }
 });
 
-// Función para validar el QR
+// Función para validar el QR escaneado
 function validateQRCode(code) {
   const messageDiv = document.getElementById('message');
-  
+  const scannedCode = code.trim().toUpperCase();
+
   fetch('data/codes.json')
     .then(response => response.json())
     .then(data => {
-      if (data.codes.includes(code)) {
+      const validCodes = data.codes.map(c => c.trim().toUpperCase());
+      if (validCodes.includes(scannedCode)) {
         messageDiv.textContent = '¡Código válido!';
       } else {
         messageDiv.textContent = 'Código no válido.';
       }
     })
     .catch(err => {
+      console.error('Error al verificar el código:', err);
       messageDiv.textContent = 'Error al verificar el código.';
     });
 }
 
 // Función para validar el código ingresado manualmente
 function validateManualCode() {
-  const code = document.getElementById('manualCode').value;  // Obtener el valor del campo de texto
+  const code = document.getElementById('manualCode').value;
   const messageDiv = document.getElementById('message');
 
   if (code === "") {
@@ -64,17 +66,20 @@ function validateManualCode() {
     return;
   }
 
-  // Validar el código ingresado con el JSON
+  const manualCode = code.trim().toUpperCase();
+
   fetch('data/codes.json')
     .then(response => response.json())
     .then(data => {
-      if (data.codes.includes(code)) {
+      const validCodes = data.codes.map(c => c.trim().toUpperCase());
+      if (validCodes.includes(manualCode)) {
         messageDiv.textContent = '¡Código válido!';
       } else {
         messageDiv.textContent = 'Código no válido.';
       }
     })
     .catch(err => {
+      console.error('Error al verificar el código:', err);
       messageDiv.textContent = 'Error al verificar el código.';
     });
 }
